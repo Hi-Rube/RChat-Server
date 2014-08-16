@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "Stranger-Socket.io",
+  "version": "0.0.1",
+  "author": "Rube",
+  "dependencies": {
+    "websocket": "1.0.8"
+  },
+  "scripts": {
+    "start": "node ./app.js"
+  }
+}
