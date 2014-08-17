@@ -12,7 +12,7 @@ module.exports = function Parse (message, conn) {
     content = JSON.parse(message.utf8Data);
   } catch (e) {
     console.log((new Date()) + 'Parameters Form Error');
-    conn.sendUTF(Error(5, 'Parameters Form Error'));
+    conn.sendUTF(Error(505, 'Parameters Form Error'));
     return null;
   }
   return content;

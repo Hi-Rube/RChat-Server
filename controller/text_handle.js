@@ -13,7 +13,7 @@ var clientList = require('../client_list');
 var paramsFilter = function (params, conn, demand){
   for (var param in params) {
     if (demand.indexOf(param) === -1) {
-      conn.sendUTF(Error(5, 'Bad Params'));
+      conn.sendUTF(Error(502, 'Bad Params'));
       return false;
     }
   }
@@ -38,8 +38,8 @@ module.exports = function TextHandle(params, conn) {
       } else {
         otherConn['talkTo'] = conn;
         conn['talkTo'] = otherConn;
-        conn.sendUTF(Success(202, 'Interconnect Success'));
-        otherConn.sendUTF(Success(202, 'Interconnect Success'));
+        conn.sendUTF(Success(201, 'Interconnect Success'));
+        otherConn.sendUTF(Success(201, 'Interconnect Success'));
         return;
       }
       break;
@@ -49,24 +49,24 @@ module.exports = function TextHandle(params, conn) {
         return;
       }
       if (conn['talkTo']){
-        conn['talkTo'].sendUTF(params['content']);
+        conn['talkTo'].sendUTF(Success(200, params['content']));
       } else {
-        conn.sendUTF(Error(5, 'Parameters Content Error'));
+        conn.sendUTF(Error(503, 'Parameters Content Error'));
       }
       break;
     //disconnect
     case -1:
       if (conn['talkTo']) {
-        conn['talkTo'].sendUTF(Error(4, 'Other Side Disconnect'));
+        conn['talkTo'].sendUTF(Error(410, 'Other Side Disconnect'));
         conn['talkTo']['talkTo'] = null;
         conn['talkTo'] = null;
-        conn.sendUTF(Success(200, 'Disconnect Success'));
+        conn.sendUTF(Success(202, 'Disconnect Success'));
       } else {
-        conn.sendUTF(Error(5, 'Parameters Content Error'));
+        conn.sendUTF(Error(503, 'Parameters Content Error'));
       }
       break;
     default:
-      conn.sendUTF(Error(5, 'Parameters Content Error'));
+      conn.sendUTF(Error(503, 'Parameters Content Error'));
       return;
   }
 }
