@@ -38,10 +38,9 @@ wsServer.on('request', function(request) {
   connection.on('close', function(reasonCode, description) {
     console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
     clientList.remove(connection);
-    try {
+    if (connection['talkTo']) {
+      connection['talkTo'].sendUTF(Error(4, 'Other Side Disconnect'));
       connection['talkTo']['talkTo'] = null;
-    } catch (e) {
-      //somebody have no talk
     }
   });
 });

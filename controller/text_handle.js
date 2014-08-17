@@ -28,18 +28,18 @@ module.exports = function TextHandle(params, conn) {
     //search client
     case 0:
       if (conn['talkTo']) {
-        conn.sendUTF(Error(3, 'Repeat Search'));
+        conn.sendUTF(Error(304, 'Repeat Search'));
         return;
       }
       var otherConn = clientList.search(conn);
       if (otherConn == null) {
-        conn.sendUTF(Error(4, 'Other Side Not Found'));
+        conn.sendUTF(Error(404, 'Other Side Not Found'));
         return;
       } else {
         otherConn['talkTo'] = conn;
         conn['talkTo'] = otherConn;
-        conn.sendUTF(Success(2, 'Interconnect Success'));
-        otherConn.sendUTF(Success(2, 'Interconnect Success'));
+        conn.sendUTF(Success(202, 'Interconnect Success'));
+        otherConn.sendUTF(Success(202, 'Interconnect Success'));
         return;
       }
       break;
@@ -48,7 +48,22 @@ module.exports = function TextHandle(params, conn) {
       if (!paramsFilter(params, conn, ['content'])) {
         return;
       }
-      conn['talkTo'].sendUTF(params['content']);
+      if (conn['talkTo']){
+        conn['talkTo'].sendUTF(params['content']);
+      } else {
+        conn.sendUTF(Error(5, 'Parameters Content Error'));
+      }
+      break;
+    //disconnect
+    case -1:
+      if (conn['talkTo']) {
+        conn['talkTo'].sendUTF(Error(4, 'Other Side Disconnect'));
+        conn['talkTo']['talkTo'] = null;
+        conn['talkTo'] = null;
+        conn.sendUTF(Success(200, 'Disconnect Success'));
+      } else {
+        conn.sendUTF(Error(5, 'Parameters Content Error'));
+      }
       break;
     default:
       conn.sendUTF(Error(5, 'Parameters Content Error'));
