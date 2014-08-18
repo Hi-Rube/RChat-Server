@@ -59,6 +59,10 @@ module.exports = function TextHandle(params, conn) {
       break;
     //disconnect
     case -1:
+      if (conn['status'] === 0){
+        conn.changeStatus(-1);
+        return;
+      }
       if (conn['talkTo']) {
         conn['talkTo'].sendUTF(Error(410, 'Other Side Disconnect'));
         conn['talkTo']['talkTo'] = null;
