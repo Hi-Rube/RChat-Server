@@ -61,6 +61,7 @@ module.exports = function TextHandle(params, conn) {
     case -1:
       if (conn['status'] === 0){
         conn.changeStatus(-1);
+        conn.sendUTF(Success(202, 'Disconnect Success'));
         return;
       }
       if (conn['talkTo']) {
