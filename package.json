@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "Stranger-Socket.io",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Rube",
   "dependencies": {
     "websocket": "1.0.8"

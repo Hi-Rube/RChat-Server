@@ -42,7 +42,7 @@ wsServer.on('request', function(request) {
     if (connection['talkTo']) {
       connection['talkTo'].sendUTF(Error(410, 'Other Side Disconnect'));
       connection['talkTo']['talkTo'] = null;
-      connection['talkTo'].changeStatus(-1);
+      connection['talkTo']['status'] = -1;
     }
   });
 });

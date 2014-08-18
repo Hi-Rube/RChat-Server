@@ -11,12 +11,14 @@ var clientList = [];
 
 exports.push = function pushClient(conn) {
   conn['talkTo'] = null;
+  conn['index'] = null;
+  conn['status'] = null;
   clientList.push(Client(conn, clientList.length));
 }
 
 exports.search = function searchFree(conn) {
   for (var i = 0; i < clientList.length; i++) {
-    if (!clientList[i].conn['talkTo'] && clientList[i].index != conn['index'] && clientList[i].status === 0) {
+    if (!clientList[i].conn['talkTo'] && clientList[i].index != conn['index'] && clientList[i].conn['status'] === 0) {
       return clientList[i].conn;
     }
   }
