@@ -33,12 +33,12 @@ module.exports = function TextHandle(params, conn) {
       }
       var otherConn = clientList.search(conn);
       if (otherConn == null) {
-        conn.changeStatus(0);
+        conn['status'] = 0;
         conn.sendUTF(Error(404, 'Other Side Not Found'));
         return;
       } else {
-        otherConn.changeStatus(1);
-        conn.changeStatus(1);
+        otherConn['status'] = 1;
+        conn['status'] = 1;
         otherConn['talkTo'] = conn;
         conn['talkTo'] = otherConn;
         conn.sendUTF(Success(201, 'Interconnect Success'));
@@ -60,16 +60,17 @@ module.exports = function TextHandle(params, conn) {
     //disconnect
     case -1:
       if (conn['status'] === 0){
-        conn.changeStatus(-1);
+        conn['status'] = -1;
         conn.sendUTF(Success(202, 'Disconnect Success'));
         return;
       }
+      console.log(conn['talkTo'])
       if (conn['talkTo']) {
         conn['talkTo'].sendUTF(Error(410, 'Other Side Disconnect'));
+        conn['talkTo']['status'] = -1;
+        conn['status'] = -1;
         conn['talkTo']['talkTo'] = null;
         conn['talkTo'] = null;
-        conn['talkTo'].changeStatus(-1);
-        conn.changeStatus(-1);
         conn.sendUTF(Success(202, 'Disconnect Success'));
       } else {
         conn.sendUTF(Error(503, 'Parameters Content Error'));
