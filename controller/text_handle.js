@@ -11,8 +11,8 @@ var clientList = require('../client_list');
 
 //Filtering bad param
 var paramsFilter = function (params, conn, demand){
-  for (var param in params) {
-    if (demand.indexOf(param) === -1) {
+  for (var d in demand) {
+    if (params[d] === null) {
       conn.sendUTF(Error(502, 'Bad Params'));
       return false;
     }
@@ -64,7 +64,6 @@ module.exports = function TextHandle(params, conn) {
         conn.sendUTF(Success(202, 'Disconnect Success'));
         return;
       }
-      console.log(conn['talkTo'])
       if (conn['talkTo']) {
         conn['talkTo'].sendUTF(Error(410, 'Other Side Disconnect'));
         conn['talkTo']['status'] = -1;
