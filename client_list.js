@@ -16,7 +16,7 @@ exports.push = function pushClient(conn) {
 
 exports.search = function searchFree(conn) {
   for (var i = 0; i < clientList.length; i++) {
-    if (!clientList[i].conn['talkTo'] && clientList[i].index != conn['index']) {
+    if (!clientList[i].conn['talkTo'] && clientList[i].index != conn['index'] && clientList[i].status === 0) {
       return clientList[i].conn;
     }
   }
