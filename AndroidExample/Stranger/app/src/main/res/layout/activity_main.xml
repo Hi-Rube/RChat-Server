@@ -1,0 +1,94 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:background="#0d0e09"
+        android:gravity="center_vertical"  >
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Stranger"
+                android:textSize="20sp"
+                android:id="@+id/title_text"
+                android:textStyle="bold"
+                android:textColor="#ffffff" />
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="26dp"
+                android:text="talk"
+                android:textSize="17sp"
+                android:textColor="#fff"
+                android:textScaleX="1.2"
+                android:id="@+id/switch_button"
+                android:layout_gravity="right|center"
+                android:background="@drawable/switch_btn_shape"
+                />
+        </FrameLayout>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/rl_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#0d0e09" >
+
+        <Button
+            android:id="@+id/send_button"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerVertical="true"
+            android:text="Send"
+            android:textSize="17sp"
+            android:textColor="#fff"
+            android:textScaleX="1.2"
+            android:textStyle="bold"
+            android:background="@drawable/send_btn_shape" />
+
+
+        <EditText
+            android:id="@+id/send_text"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_toLeftOf="@id/send_button"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/edit_text_shape"
+            android:layout_centerVertical="true"
+            android:singleLine="true"
+            android:textColorHint="#ccc"
+            android:textSize="18sp"/>
+
+    </RelativeLayout>
+
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_below="@id/rl_layout"
+        android:layout_above="@id/rl_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:divider="@null"
+        android:dividerHeight="5dp"
+        android:stackFromBottom="true"
+        android:scrollbars="none"
+        android:transcriptMode="alwaysScroll"
+        android:cacheColorHint="#0000"/>
+
+</RelativeLayout>
